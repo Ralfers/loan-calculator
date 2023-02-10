@@ -1,12 +1,12 @@
-package loancalculator;
+package org.example.loan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LoanCalculatorApplication {
+public class LoanApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LoanCalculatorApplication.class, args);
+        SpringApplication.run(LoanApplication.class, args);
     }
 }
