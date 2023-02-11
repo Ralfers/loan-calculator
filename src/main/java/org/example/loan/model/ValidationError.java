@@ -2,12 +2,12 @@ package org.example.loan.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @RequiredArgsConstructor
-public class LoanCalculationError {
+public class ValidationError {
 
-    private String message = "Test error";
+    private final String field;
+
+    private final String message;
 }

@@ -2,16 +2,16 @@ package org.example.loan.model;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
 
-@RequiredArgsConstructor
 @Getter
 @Setter
-public class LoanCriteria {
+@AllArgsConstructor
+public class LoanPlanCriteria {
 
     @NotNull
     @DecimalMin(value = "0", inclusive = false)

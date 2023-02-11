@@ -1,7 +1,7 @@
 package org.example.loan.service;
 
 import org.example.loan.model.Installment;
-import org.example.loan.model.PaybackPlan;
+import org.example.loan.model.LoanPlan;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,18 +11,18 @@ import java.math.MathContext;
 @Service
 public class EMIPlanCalculationService extends BasePlanCalculationService {
 
-    public PaybackPlan calculateMonthlyPlan(BigInteger loanedAmount, BigDecimal interest, int loanMonths) {
-        PaybackPlan paybackPlan = new PaybackPlan()
+    public LoanPlan calculateMonthlyPlan(BigInteger loanedAmount, BigDecimal interest, int loanMonths) {
+        LoanPlan loanPlan = new LoanPlan()
                 .setTotalPrincipalAmount(loanedAmount)
                 .setInterest(interest)
                 .setLoanMonths(loanMonths);
 
-        fillInstallments(paybackPlan, loanedAmount, interest, loanMonths);
+        fillInstallments(loanPlan, loanedAmount, interest, loanMonths);
 
-        return paybackPlan;
+        return loanPlan;
     }
 
-    private void fillInstallments(PaybackPlan paybackPlan, BigInteger loanedAmount, BigDecimal interest, int loanMonths) {
+    private void fillInstallments(LoanPlan loanPlan, BigInteger loanedAmount, BigDecimal interest, int loanMonths) {
         BigDecimal installmentAmount = calculateInstallmentAmount(loanedAmount, interest, loanMonths);
         BigDecimal monthlyInterest = interest.divide(TWELVE_DECIMAL, MathContext.DECIMAL32);
 
@@ -40,15 +40,15 @@ public class EMIPlanCalculationService extends BasePlanCalculationService {
                     .setInterestAmount(toInteger(interestAmount))
                     .setPrincipalAmount(toInteger(principalAmount))
                     .setRemainingPrincipalAmount(toInteger(remainingPrincipalAmount));
-            paybackPlan.addInstallment(installment);
+            loanPlan.addInstallment(installment);
 
             totalAmount = totalAmount.add(installmentAmount);
             totalInterestAmount = totalInterestAmount.add(interestAmount);
             prevRemainingPrincipalAmount = remainingPrincipalAmount;
         }
 
-        paybackPlan.setTotalAmount(toInteger(totalAmount));
-        paybackPlan.setTotalInterestAmount(toInteger(totalInterestAmount));
+        loanPlan.setTotalAmount(toInteger(totalAmount));
+        loanPlan.setTotalInterestAmount(toInteger(totalInterestAmount));
     }
 
     private BigDecimal calculateInstallmentAmount(BigInteger loanedAmount, BigDecimal interest, int loanMonths) {

@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class PaybackPlan {
+public class LoanPlan {
 
     private Integer loanMonths;
 
@@ -26,12 +26,20 @@ public class PaybackPlan {
 
     private List<Installment> installments = new ArrayList<>();
 
-    public void addInstallment(Installment installment) {
+    public LoanPlan addInstallment(Installment installment) {
         installments.add(installment);
+        return this;
     }
 
-    public PaybackPlan setInterest(BigDecimal interest) {
+    public LoanPlan setInterest(BigDecimal interest) {
         this.interest = interest.toString();
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("months=%s, interest=%s, principal=%s, interest amount=%s, total amount=%s",
+                loanMonths, interest, totalPrincipalAmount, totalInterestAmount, totalAmount
+        );
     }
 }
