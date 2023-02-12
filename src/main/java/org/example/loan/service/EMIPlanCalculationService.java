@@ -24,7 +24,7 @@ public class EMIPlanCalculationService extends BasePlanCalculationService {
 
     private void fillInstallments(LoanPlan loanPlan, BigInteger loanedAmount, BigDecimal interest, int loanMonths) {
         BigDecimal installmentAmount = calculateInstallmentAmount(loanedAmount, interest, loanMonths);
-        BigDecimal monthlyInterest = interest.divide(TWELVE_DECIMAL, MathContext.DECIMAL32);
+        BigDecimal monthlyInterest = interest.divide(TWELVE_DECIMAL, MathContext.DECIMAL128);
 
         BigDecimal totalAmount = BigDecimal.ZERO;
         BigDecimal totalInterestAmount = BigDecimal.ZERO;
@@ -52,7 +52,7 @@ public class EMIPlanCalculationService extends BasePlanCalculationService {
     }
 
     private BigDecimal calculateInstallmentAmount(BigInteger loanedAmount, BigDecimal interest, int loanMonths) {
-        BigDecimal monthlyInterest = interest.divide(TWELVE_DECIMAL, MathContext.DECIMAL32);
+        BigDecimal monthlyInterest = interest.divide(TWELVE_DECIMAL, MathContext.DECIMAL128);
 
         return new BigDecimal(loanedAmount)
                 .multiply(monthlyInterest)
@@ -60,7 +60,7 @@ public class EMIPlanCalculationService extends BasePlanCalculationService {
                 .divide(
                         monthlyInterest.add(BigDecimal.ONE).pow(loanMonths)
                                 .subtract(BigDecimal.ONE),
-                        MathContext.DECIMAL32
+                        MathContext.DECIMAL128
                 );
     }
 }

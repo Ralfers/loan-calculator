@@ -14,11 +14,7 @@ public class ValidationException extends Exception {
 
     public ValidationException(BindingResult bindingResult) {
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            if ("loanedAmount".equals(fieldError.getField())) {
-                validationErrors.addError(new ValidationError(fieldError.getField(), ""));
-            } else {
-                validationErrors.addError(new ValidationError(fieldError.getField(), fieldError.getDefaultMessage()));
-            }
+            validationErrors.addError(new ValidationError(fieldError.getField(), fieldError.getDefaultMessage()));
         }
     }
 }
