@@ -6,7 +6,6 @@ import org.example.loan.model.ValidationError;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-
 @Getter
 public class ValidationException extends Exception {
 
