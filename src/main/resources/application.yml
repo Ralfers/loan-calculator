@@ -1,2 +1,8 @@
 server:
   port: 9005
+
+logging:
+  level:
+    root: INFO
+    springframework: INFO
+    org.example: DEBUG
